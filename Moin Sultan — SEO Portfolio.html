@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moin Sultan — SEO Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --blue: #1a52f5;
+    --cyan: #00d4ff;
+    --gold: #f5c518;
+    --white: #f8f9ff;
+    --gray: #8892a4;
+    --card-bg: #0f1f3d;
+    --border: rgba(255,255,255,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,82,245,0.18) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero h1 span {
+    -webkit-text-stroke: 2px var(--blue);
+    color: transparent;
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 600;
+    color: var(--gray);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-title em {
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    border: 2px solid var(--blue);
+  }
+  .btn-primary:hover { background: transparent; color: var(--blue); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--cyan);
+    border: 2px solid var(--cyan);
+  }
+  .btn-outline:hover { background: var(--cyan); color: var(--navy); }
+
+  /* ── STATS BAR ── */
+  .stats {
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 60px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat {
+    text-align: center;
+    padding: 20px;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 100px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 60px;
+    letter-spacing: -1px;
+  }
+
+  /* ── CASE STUDY CARD ── */
+  .case-study {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .case-study:hover {
+    transform: translateY(-4px);
+    border-color: rgba(26,82,245,0.4);
+  }
+
+  .case-left {
+    padding: 60px;
+    border-right: 1px solid var(--border);
+  }
+
+  .case-tag {
+    display: inline-block;
+    background: rgba(0,212,255,0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(0,212,255,0.3);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .case-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .case-url {
+    color: var(--blue);
+    font-size: 13px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+  .case-url:hover { color: var(--cyan); }
+
+  .case-desc {
+    color: var(--gray);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .case-timeline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .case-right {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .result-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .result-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1;
+  }
+
+  .result-label {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .result-sub {
+    color: var(--gray);
+    font-size: 12px;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .skill-item {
+    background: var(--card-bg);
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.2s;
+  }
+  .skill-item:hover { background: rgba(26,82,245,0.1); }
+
+  .skill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+    padding: 100px 60px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+    bottom: -200px;
+    left: -100px;
+    pointer-events: none;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .contact-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(26,82,245,0.15);
+    border: 1px solid rgba(26,82,245,0.3);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .contact-text { font-size: 15px; color: var(--gray); }
+  .contact-text strong { color: var(--white); display: block; margin-bottom: 2px; font-weight: 500; }
+
+  .contact-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 24px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer p { color: var(--gray); font-size: 13px; }
+  footer span { color: var(--cyan); font-family: 'Syne', sans-serif; font-weight: 700; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero, .section, .contact-section { padding: 60px 24px; }
+    .stats { grid-template-columns: repeat(2, 1fr); padding: 40px 24px; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .case-study { grid-template-columns: 1fr; }
+    .case-left { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 24px; }
+    .case-right { padding: 40px 24px; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-tag">SEO Portfolio — Jeddah, Saudi Arabia</p>
+  <h1>MOIN<br><span>SULTAN</span></h1>
+  <p class="hero-title">SEO Executive · <em>5+ Years Experience</em></p>
+  <div class="hero-links">
+    <a href="https://www.linkedin.com/in/moin-sultan-290b69214" target="_blank" class="btn btn-primary">LinkedIn Profile</a>
+    <a href="mailto:moinsultan783@gmail.com" class="btn btn-outline">Hire Me</a>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">5+</div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Companies</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">40%+</div>
+    <div class="stat-label">Avg. Traffic Growth</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3mo</div>
+    <div class="stat-label">Fastest Ranking</div>
+  </div>
+</div>
+
+<!-- ── CASE STUDY ── -->
+<section class="section">
+  <p class="section-tag">Case Study</p>
+  <h2 class="section-title">Real Results,<br>Real Clients</h2>
+
+  <div class="case-study">
+    <div class="case-left">
+      <span class="case-tag">Travel &amp; Tourism</span>
+      <h3 class="case-title">TravelerWiz — Google Search Rankings</h3>
+      <a href="https://www.travelerwiz.com" target="_blank" class="case-url">↗ travelerwiz.com</a>
+      <p class="case-desc">
+        A travel destinations blog struggling with low organic visibility and zero inbound leads. Through a full SEO strategy — technical fixes, keyword-targeted content, and quality link building — the website achieved strong Google search rankings, a significant boost in organic traffic, and a measurable increase in hotel booking inquiries and calls.
+      </p>
+      <div class="case-timeline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Results achieved in 3 months
+      </div>
+    </div>
+    <div class="case-right">
+      <div class="result-item">
+        <div class="result-num">↑ Top</div>
+        <div class="result-label">Google Search Rankings</div>
+        <div class="result-sub">Ranked for targeted travel keywords on Page 1</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">40%+</div>
+        <div class="result-label">Organic Traffic Increase</div>
+        <div class="result-sub">Sustained growth in monthly visits from search</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">↑ Calls</div>
+        <div class="result-label">Hotel Booking Inquiries</div>
+        <div class="result-sub">Direct calls and booking requests from organic visitors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section class="section" style="padding-top: 0;">
+  <p class="section-tag">Expertise</p>
+  <h2 class="section-title">Core Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">On-Page SEO</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Off-Page SEO</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Technical SEO</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Local SEO</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Google My Business</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Keyword Research</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Link Building</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Schema Markup</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Core Web Vitals</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Google Search Console</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Google Analytics 4</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Ahrefs / SEMrush</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Screaming Frog</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Content Strategy</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Site Audit</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">E-commerce SEO</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Page Speed Optimization</span></div>
+    <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Competitor Analysis</span></div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact-section">
+  <div class="contact-grid">
+    <div>
+      <p class="section-tag">Get In Touch</p>
+      <h2 class="section-title" style="margin-bottom: 0;">Let's Work<br>Together</h2>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <strong>+966 549 057 170</strong>
+            Available in Jeddah, KSA
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <strong>moinsultan783@gmail.com</strong>
+            Reply within 24 hours
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <strong>Wadi Marikha, Jeddah</strong>
+            Saudi Arabia — Available Immediately
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-cta">
+      <p style="color: var(--gray); font-size: 16px; line-height: 1.7;">
+        SEO Executive with <strong style="color: var(--white);">5+ years of experience</strong> across two agencies. Currently based in Jeddah and open to full-time opportunities in KSA.
+      </p>
+      <a href="https://www.linkedin.com/in/moin-sultan-290b69214" target="_blank" class="btn btn-primary" style="width: fit-content;">View LinkedIn Profile ↗</a>
+      <a href="mailto:moinsultan783@gmail.com" class="btn btn-outline" style="width: fit-content;">Send Email ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 <span>Moin Sultan</span> — SEO Executive</p>
+  <p style="color: var(--gray); font-size: 12px;">Jeddah, Saudi Arabia</p>
+</footer>
+
+</body>
+</html>
